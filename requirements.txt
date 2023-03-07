@@ -1,0 +1,4 @@
+dlib (windows https://visualstudio.microsoft.com/visual-ccp-build-tools/)
+face_recognition
+numpy
+opencv-python
