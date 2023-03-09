@@ -18,10 +18,10 @@ def get_rostos():
         rostos_conhecidos.append(john_base[1][0])
         nomes_dos_rostos.append("John Helder (Adulto)")
 
-    john_kids = reconhece_face('./img/john_kids.jpg')
-    if(john_kids[0]):
-        rostos_conhecidos.append(john_kids[1][0])
-        nomes_dos_rostos.append("John Helder (Criança)")
+    #john_kids = reconhece_face('./img/john_kids.jpg')
+    #if(john_kids[0]):
+    #    rostos_conhecidos.append(john_kids[1][0])
+    #    nomes_dos_rostos.append("John Helder (Criança)")
 
 
     stark = reconhece_face('./img/stark.jpg')

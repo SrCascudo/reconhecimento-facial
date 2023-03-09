@@ -1,18 +1,22 @@
 import numpy as np
 import face_recognition as fr
 import cv2
-from engine import reconhece_face, get_rostos
+from engine import get_rostos
 
 db_rostos_conhecido, db_nomes_rostos = get_rostos()
 
-captura_video = cv2.VideoCapture(0)
+cap_video = cv2.VideoCapture(0)
 while True:
-    ret, frame = captura_video.read()
+    ret, frame = cap_video.read()
 
     rgb_frame = frame[:, :, ::-1]
 
     face_localizacao = fr.face_locations(rgb_frame)
     rosto_desconhecido = fr.face_encodings(rgb_frame, face_localizacao)
+
+    if(len(rosto_desconhecido) < 1):
+        print('Nenhum rosto localizado!')
+        continue
 
     for (top, rigth, bottom, left), rosto_desconhecido in zip(face_localizacao, rosto_desconhecido):
         resultados =fr.compare_faces(db_rostos_conhecido, rosto_desconhecido)
@@ -34,10 +38,12 @@ while True:
         font = cv2.FONT_HERSHEY_SIMPLEX
 
         # Inserção de texto
-        cv2.putText(frame, nome, (left+6, bottom-6), font, 1.0, (255,255,255), 1)    
+        cv2.putText(frame, nome, (left+6, bottom+20), font, 0.5, (255,255,255), 1)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+        cv2.imshow('Webcam_facerecognition', frame)
+        
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-    captura_video.realease()
-    cv2.destroyAllWindows()
+cap_video.release()
+cv2.destroyAllWindows()
